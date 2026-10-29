@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Seva - Maa Chamunda Devi</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --primary-red: #b91c1c;
+            --dark-red: #7f1d1d;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-cream: #fef8f5;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            background-color: var(--bg-cream);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .dashboard-nav {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            color: #991b1b;
+            margin-bottom: -2px;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .logo-icon {
+            font-size: 30px;
+            color: #dc2626;
+            margin-right: 15px;
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .dashboard-container {
+            flex: 1;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .dashboard-header .shloka {
+            color: var(--primary-red);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-header h1 {
+            font-family: var(--font-heading);
+            font-size: 48px;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .dashboard-header p {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .seva-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            cursor: pointer;
+            border: 1px solid #f3f4f6;
+            display: block;
+        }
+
+        .seva-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(185, 28, 28, 0.15);
+            border-color: var(--primary-red);
+        }
+
+        .seva-icon-wrap {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #fef2f2;
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 20px;
+            transition: 0.3s;
+        }
+
+        .seva-card:hover .seva-icon-wrap {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .seva-card h3 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .seva-card p {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .custom-modal {
+            background: white;
+            width: 100%;
+            max-width: 650px;
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: translateY(20px);
+            transition: 0.3s;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.show .custom-modal {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-red);
+            transform: scale(1.1);
+        }
+
+        .modal-content h2 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            color: var(--primary-red);
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .modal-content .shloka {
+            text-align: center;
+            color: #d97706;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .guidelines-box {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .guidelines-box h4 {
+            font-size: 14px;
+            color: #b45309;
+            margin-bottom: 5px;
+        }
+
+        .guidelines-box p {
+            font-size: 13px;
+            color: #78350f;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .guidelines-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .selection-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+            resize: vertical;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
+        }
+
+        .form-group.invalid input,
+        .form-group.invalid select,
+        .form-group.invalid textarea {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .form-group.invalid .error-msg {
+            display: block;
+        }
+
+        .guest-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .guest-card h4 {
+            font-size: 15px;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #d1d5db;
+            padding-bottom: 8px;
+        }
+
+        .guest-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            background: var(--dark-red);
+        }
+
+        .qr-container {
+            text-align: center;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 1px dashed #d1d5db;
+            margin-bottom: 20px;
+        }
+
+        .qr-container img {
+            max-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .qr-container h3 {
+            font-size: 20px;
+            color: var(--text-dark);
+        }
+
+        .qr-container p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .processing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 10, 10, 0.95);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .processing-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mantra-text {
+            font-family: var(--font-heading);
+            font-size: 45px;
+            color: #fbbf24;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+            animation: pulse-glow 2s infinite alternate;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(251, 191, 36, 0.2);
+            border-top: 4px solid #fbbf24;
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .processing-text {
+            font-size: 18px;
+            color: #d1d5db;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                transform: scale(0.98);
+                text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+            }
+
+            100% {
+                transform: scale(1.02);
+                text-shadow: 0 0 30px rgba(251, 191, 36, 0.9);
+            }
+        }
+
+        .ticket-modal-custom {
+            padding: 0;
+            overflow: hidden;
+            max-width: 550px;
+        }
+
+        .ticket-wrapper {
+            background: #fff;
+            padding: 30px;
+            position: relative;
+            border: 2px dashed #b91c1c;
+            margin: 15px;
+            border-radius: 12px;
+        }
+
+        .ticket-header {
+            text-align: center;
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .ticket-header h2 {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            color: #b91c1c;
+            margin-bottom: 5px;
+        }
+
+        .ticket-header p {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .ticket-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            background: #fef2f2;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .ticket-details-grid div p:first-child {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .ticket-details-grid div p:last-child {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .delivery-box {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+
+        .delivery-box p:first-child {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .delivery-box p:last-child {
+            font-size: 14px;
+            color: #1f2937;
+            line-height: 1.5;
+        }
+
+        .ticket-footer {
+            text-align: center;
+            border-top: 2px dashed #e5e7eb;
+            padding-top: 15px;
+            margin-top: 20px;
+        }
+
+        .ticket-footer p {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+
+        .ticket-footer .shloka {
+            font-family: var(--font-heading);
+            color: #b91c1c;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .ticket-actions {
+            background: #f9fafb;
+            padding: 20px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .download-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #059669;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header h1 {
+                font-size: 32px;
+            }
+
+            .dashboard-nav {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .selection-row,
+            .guest-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .custom-modal {
+                padding: 20px;
+            }
+
+            .ticket-details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="processing-overlay" id="processingOverlay">
+        <div class="mantra-text">|| Jai Maa Chamunda Devi ||</div>
+        <div class="loading-spinner"></div>
+        <div class="processing-text" id="processingText">Connecting to Dham...</div>
+        <audio id="mantraAudio" loop>
+            <source src="merimaa.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <nav class="dashboard-nav">
+        <div style="display: flex; align-items: center;">
+            <i class="fas fa-om logo-icon"></i>
+            <div class="logo-text">
+                <h1>Maa Chamunda Devi</h1>
+                <p>Online Seva Portal</p>
+            </div>
+        </div>
+        <button class="logout-btn" onclick="window.location.href='index.html'">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+            <h1>Welcome to Online Seva</h1>
+            <p>Select a service below to continue your divine journey.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <a href="#" class="seva-card" id="cardAccommodation">
+                <div class="seva-icon-wrap"><i class="fas fa-hotel"></i></div>
+                <h3>Accommodation</h3>
+                <p>Book a comfortable stay near the temple.</p>
+            </a>
+
+            <a href="#" class="seva-card" id="cardDarshanBooking">
+                <div class="seva-icon-wrap"><i class="fas fa-hands-praying"></i></div>
+                <h3>Darshan Booking</h3>
+                <p>Book your slot for a peaceful Darshan.</p>
+            </a>
+
+            <a href="#" class="seva-card" id="cardPoojaBooking">
+                <div class="seva-icon-wrap"><i class="fas fa-fire-alt"></i></div>
+                <h3>Pooja Booking</h3>
+                <p>Participate in special Poojas and Hawans.</p>
+            </a>
+
+            <a href="#" class="seva-card" id="cardAartiBooking">
+                <div class="seva-icon-wrap"><i class="fas fa-bell"></i></div>
+                <h3>Aarti Booking</h3>
+                <p>Join the divine Morning or Evening Aarti.</p>
+            </a>
+
+            <a href="#" class="seva-card" id="cardPrasadBooking">
+                <div class="seva-icon-wrap"><i class="fas fa-box-open"></i></div>
+                <h3>Prasad</h3>
+                <p>Order sacred Prasad to be delivered to you.</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="accommodationModal">
+        <div class="custom-modal">
+            <i class="fas fa-times close-modal" id="closeAccommodationModal"></i>
+            <div class="modal-content">
+                <h2>Accommodation Booking</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                <div class="guidelines-box">
+                    <h4><i class="fas fa-info-circle"></i> Important Guidelines:</h4>
+                    <p>1. Children above 10 years of age must be counted as Adults.</p>
+                    <p>2. It is mandatory to bring the original ID proof matching the details entered here during
+                        check-in.</p>
+                </div>
+                <form id="accommodationForm" novalidate>
+                    <div class="selection-row">
+                        <div class="form-group">
+                            <label>Number of Adults (10+ Yrs) *</label>
+                            <select id="accAdultCount">
+                                <option value="1">1 Person</option>
+                                <option value="2">2 Persons</option>
+                                <option value="3">3 Persons</option>
+                                <option value="4">4 Persons</option>
+                                <option value="5">5 Persons</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Children (Below 10 Yrs)</label>
+                            <select id="accChildCount">
+                                <option value="0">0 Children</option>
+                                <option value="1">1 Child</option>
+                                <option value="2">2 Children</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="accommodation-guest-container"></div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-ticket-alt"></i> Generate Ticket</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="accDateModal">
+        <div class="custom-modal" style="max-width: 450px;">
+            <i class="fas fa-times close-modal" id="closeAccDateModal"></i>
+            <div class="modal-content">
+                <h2>Select Stay Date</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                <div class="guidelines-box" style="margin-bottom: 20px;">
+                    <h4><i class="fas fa-bed"></i> Availability:</h4>
+                    <p>• Total 300 beds available per day.</p>
+                    <p>• Booking up to 1 month in advance.</p>
+                </div>
+                <form id="accDateForm" novalidate>
+                    <div class="form-group" id="accDateGroup">
+                        <label>Date of Visit *</label>
+                        <input type="date" id="accBookingDate" required>
+                        <span class="error-msg" id="accDateErrorMsg">Please select a valid date.</span>
+                    </div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-check-circle"></i> Confirm &
+                        Process</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="accTicketModal">
+        <div class="custom-modal ticket-modal-custom">
+            <div class="ticket-wrapper" id="accTicketToDownload">
+                <div class="ticket-header">
+                    <h2>Maa Chamunda Devi Temple</h2>
+                    <p>Accommodation Ticket</p>
+                    <p style="margin-top: 5px; font-weight: bold; color: #b91c1c;">Booking ID: <span
+                            id="accTicketBookingId">#MC-00000</span></p>
+                </div>
+                <div class="ticket-details-grid">
+                    <div>
+                        <p>Stay Date</p>
+                        <p id="accTicketDate">DD-MM-YYYY</p>
+                    </div>
+                    <div>
+                        <p>Total Guests</p>
+                        <p id="accTicketTotalGuests">0</p>
+                    </div>
+                </div>
+                <table class="ticket-guest-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Type</th>
+                            <th>ID Proof</th>
+                        </tr>
+                    </thead>
+                    <tbody id="accTicketGuestList"></tbody>
+                </table>
+                <div class="ticket-footer">
+                    <p><strong>Note:</strong> Carry original ID proofs for check-in.</p>
+                    <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                </div>
+            </div>
+            <div class="ticket-actions">
+                <button class="download-btn" id="downloadAccTicketBtn"><i class="fas fa-download"></i> Download
+                    Ticket</button>
+                <br><button class="close-modal" id="closeAccTicketModal"
+                    style="position: static; margin-top: 15px; font-size: 14px; text-decoration: underline; color: #6b7280;">Close
+                    Window</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="darshanModal">
+        <div class="custom-modal">
+            <i class="fas fa-times close-modal" id="closeDarshanModal"></i>
+            <div class="modal-content">
+                <h2>Darshan Booking</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                <div class="guidelines-box">
+                    <h4><i class="fas fa-info-circle"></i> Important Guidelines:</h4>
+                    <p>1. Children above 10 years of age must be counted as Adults.</p>
+                    <p>2. Valid ID proof is mandatory for every devotee.</p>
+                </div>
+                <form id="darshanForm" novalidate>
+                    <div class="selection-row">
+                        <div class="form-group">
+                            <label>Number of Adults (10+ Yrs) *</label>
+                            <select id="darshanAdultCount">
+                                <option value="1">1 Person</option>
+                                <option value="2">2 Persons</option>
+                                <option value="3">3 Persons</option>
+                                <option value="4">4 Persons</option>
+                                <option value="5">5 Persons</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Children (Below 10 Yrs)</label>
+                            <select id="darshanChildCount">
+                                <option value="0">0 Children</option>
+                                <option value="1">1 Child</option>
+                                <option value="2">2 Children</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="darshan-guest-container"></div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-ticket-alt"></i> Proceed to Select
+                        Date</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="darshanDateModal">
+        <div class="custom-modal" style="max-width: 450px;">
+            <i class="fas fa-times close-modal" id="closeDarshanDateModal"></i>
+            <div class="modal-content">
+                <h2>Select Darshan Date</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                <div class="guidelines-box" style="margin-bottom: 20px;">
+                    <h4><i class="fas fa-clock"></i> Rules:</h4>
+                    <p>• Booking is open up to 1 month in advance.</p>
+                </div>
+                <form id="darshanDateForm" novalidate>
+                    <div class="form-group" id="darshanDateGroup">
+                        <label>Date of Darshan *</label>
+                        <input type="date" id="darshanBookingDate" required>
+                        <span class="error-msg" id="darshanDateErrorMsg">Please select a valid date.</span>
+                    </div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-check-circle"></i> Confirm &
+                        Process</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="darshanTicketModal">
+        <div class="custom-modal ticket-modal-custom">
+            <div class="ticket-wrapper" id="darshanTicketToDownload">
+                <div class="ticket-header">
+                    <h2>Maa Chamunda Devi Temple</h2>
+                    <p>Darshan Entry Ticket</p>
+                    <p style="margin-top: 5px; font-weight: bold; color: #b91c1c;">Booking ID: <span
+                            id="darshanTicketBookingId">#MC-00000</span></p>
+                </div>
+                <div class="ticket-details-grid">
+                    <div>
+                        <p>Darshan Date</p>
+                        <p id="darshanTicketDate">DD-MM-YYYY</p>
+                    </div>
+                    <div>
+                        <p>Total Devotees</p>
+                        <p id="darshanTicketTotalGuests">0</p>
+                    </div>
+                </div>
+                <table class="ticket-guest-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Type</th>
+                            <th>ID Proof</th>
+                        </tr>
+                    </thead>
+                    <tbody id="darshanTicketGuestList"></tbody>
+                </table>
+                <div class="ticket-footer">
+                    <p><strong>Note:</strong> Carry original ID proofs for Darshan.</p>
+                    <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                </div>
+            </div>
+            <div class="ticket-actions">
+                <button class="download-btn" id="downloadDarshanTicketBtn"><i class="fas fa-download"></i> Download
+                    Ticket</button>
+                <br><button class="close-modal" id="closeDarshanTicketModal"
+                    style="position: static; margin-top: 15px; font-size: 14px; text-decoration: underline; color: #6b7280;">Close
+                    Window</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="poojaModal">
+        <div class="custom-modal">
+            <i class="fas fa-times close-modal" id="closePoojaModal"></i>
+            <div class="modal-content">
+                <h2>Pooja Booking</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                <div class="guidelines-box">
+                    <h4><i class="fas fa-info-circle"></i> Important Guidelines:</h4>
+                    <p>1. Please arrive at the temple 30 minutes before Pooja time.</p>
+                    <p>2. Valid ID proof is mandatory for every devotee.</p>
+                </div>
+                <form id="poojaForm" novalidate>
+                    <div class="form-group">
+                        <label>Select Pooja Type *</label>
+                        <select id="poojaTypeSelect">
+                            <option value="Special Shringar Pooja">Special Shringar Pooja</option>
+                            <option value="Maa Chamunda Hawan">Maa Chamunda Hawan</option>
+                            <option value="Navratri Pooja">Navratri Pooja</option>
+                            <option value="Sahasra Chandi Pooja">Sahasra Chandi Pooja</option>
+                        </select>
+                    </div>
+                    <div class="selection-row">
+                        <div class="form-group">
+                            <label>Number of Adults (10+ Yrs) *</label>
+                            <select id="poojaAdultCount">
+                                <option value="1">1 Person</option>
+                                <option value="2">2 Persons</option>
+                                <option value="3">3 Persons</option>
+                                <option value="4">4 Persons</option>
+                                <option value="5">5 Persons</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Children (Below 10 Yrs)</label>
+                            <select id="poojaChildCount">
+                                <option value="0">0 Children</option>
+                                <option value="1">1 Child</option>
+                                <option value="2">2 Children</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="pooja-guest-container"></div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-ticket-alt"></i> Proceed to Select
+                        Date</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="poojaDateModal">
+        <div class="custom-modal" style="max-width: 450px;">
+            <i class="fas fa-times close-modal" id="closePoojaDateModal"></i>
+            <div class="modal-content">
+                <h2>Select Pooja Date</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                <div class="guidelines-box" style="margin-bottom: 20px;">
+                    <h4><i class="fas fa-clock"></i> Rules:</h4>
+                    <p>• Booking is open up to 1 month in advance.</p>
+                </div>
+                <form id="poojaDateForm" novalidate>
+                    <div class="form-group" id="poojaDateGroup">
+                        <label>Date of Pooja *</label>
+                        <input type="date" id="poojaBookingDate" required>
+                        <span class="error-msg" id="poojaDateErrorMsg">Please select a valid date.</span>
+                    </div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-check-circle"></i> Confirm &
+                        Process</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="poojaTicketModal">
+        <div class="custom-modal ticket-modal-custom">
+            <div class="ticket-wrapper" id="poojaTicketToDownload">
+                <div class="ticket-header">
+                    <h2>Maa Chamunda Devi Temple</h2>
+                    <p>Pooja Entry Ticket</p>
+                    <p style="margin-top: 5px; font-weight: bold; color: #b91c1c;">Booking ID: <span
+                            id="poojaTicketBookingId">#MC-00000</span></p>
+                </div>
+                <div class="ticket-details-grid">
+                    <div>
+                        <p>Pooja Date</p>
+                        <p id="poojaTicketDate">DD-MM-YYYY</p>
+                    </div>
+                    <div>
+                        <p>Pooja Type</p>
+                        <p id="poojaTicketType">-</p>
+                    </div>
+                    <div>
+                        <p>Total Devotees</p>
+                        <p id="poojaTicketTotalGuests">0</p>
+                    </div>
+                </div>
+                <table class="ticket-guest-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Type</th>
+                            <th>ID Proof</th>
+                        </tr>
+                    </thead>
+                    <tbody id="poojaTicketGuestList"></tbody>
+                </table>
+                <div class="ticket-footer">
+                    <p><strong>Note:</strong> Carry original ID proofs for Pooja.</p>
+                    <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                </div>
+            </div>
+            <div class="ticket-actions">
+                <button class="download-btn" id="downloadPoojaTicketBtn"><i class="fas fa-download"></i> Download
+                    Ticket</button>
+                <br><button class="close-modal" id="closePoojaTicketModal"
+                    style="position: static; margin-top: 15px; font-size: 14px; text-decoration: underline; color: #6b7280;">Close
+                    Window</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="aartiModal">
+        <div class="custom-modal">
+            <i class="fas fa-times close-modal" id="closeAartiModal"></i>
+            <div class="modal-content">
+                <h2>Aarti Booking</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                <div class="guidelines-box">
+                    <h4><i class="fas fa-info-circle"></i> Important Guidelines:</h4>
+                    <p>1. Please arrive at the temple 30 minutes before Aarti time.</p>
+                    <p>2. Valid ID proof is mandatory for every devotee.</p>
+                </div>
+                <form id="aartiForm" novalidate>
+                    <div class="form-group">
+                        <label>Select Aarti Time *</label>
+                        <select id="aartiTimeSlot">
+                            <option value="Morning Aarti (6:00 AM)">Morning Aarti (6:00 AM)</option>
+                            <option value="Evening Aarti (7:00 PM)">Evening Aarti (7:00 PM)</option>
+                        </select>
+                    </div>
+                    <div class="selection-row">
+                        <div class="form-group">
+                            <label>Number of Adults (10+ Yrs) *</label>
+                            <select id="aartiAdultCount">
+                                <option value="1">1 Person</option>
+                                <option value="2">2 Persons</option>
+                                <option value="3">3 Persons</option>
+                                <option value="4">4 Persons</option>
+                                <option value="5">5 Persons</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Children (Below 10 Yrs)</label>
+                            <select id="aartiChildCount">
+                                <option value="0">0 Children</option>
+                                <option value="1">1 Child</option>
+                                <option value="2">2 Children</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="aarti-guest-container"></div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-ticket-alt"></i> Proceed to Select
+                        Date</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="aartiDateModal">
+        <div class="custom-modal" style="max-width: 450px;">
+            <i class="fas fa-times close-modal" id="closeAartiDateModal"></i>
+            <div class="modal-content">
+                <h2>Select Aarti Date</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                <div class="guidelines-box" style="margin-bottom: 20px;">
+                    <h4><i class="fas fa-clock"></i> Rules:</h4>
+                    <p>• Booking is open up to 1 month in advance.</p>
+                </div>
+                <form id="aartiDateForm" novalidate>
+                    <div class="form-group" id="aartiDateGroup">
+                        <label>Date of Aarti *</label>
+                        <input type="date" id="aartiBookingDate" required>
+                        <span class="error-msg" id="aartiDateErrorMsg">Please select a valid date.</span>
+                    </div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-check-circle"></i> Confirm &
+                        Process</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="aartiTicketModal">
+        <div class="custom-modal ticket-modal-custom">
+            <div class="ticket-wrapper" id="aartiTicketToDownload">
+                <div class="ticket-header">
+                    <h2>Maa Chamunda Devi Temple</h2>
+                    <p>Aarti Entry Ticket</p>
+                    <p style="margin-top: 5px; font-weight: bold; color: #b91c1c;">Booking ID: <span
+                            id="aartiTicketBookingId">#MC-00000</span></p>
+                </div>
+                <div class="ticket-details-grid">
+                    <div>
+                        <p>Aarti Date</p>
+                        <p id="aartiTicketDate">DD-MM-YYYY</p>
+                    </div>
+                    <div>
+                        <p>Aarti Time</p>
+                        <p id="aartiTicketTime">-</p>
+                    </div>
+                    <div>
+                        <p>Total Devotees</p>
+                        <p id="aartiTicketTotalGuests">0</p>
+                    </div>
+                </div>
+                <table class="ticket-guest-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Type</th>
+                            <th>ID Proof</th>
+                        </tr>
+                    </thead>
+                    <tbody id="aartiTicketGuestList"></tbody>
+                </table>
+                <div class="ticket-footer">
+                    <p><strong>Note:</strong> Carry original ID proofs for Aarti.</p>
+                    <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                </div>
+            </div>
+            <div class="ticket-actions">
+                <button class="download-btn" id="downloadAartiTicketBtn"><i class="fas fa-download"></i> Download
+                    Ticket</button>
+                <br><button class="close-modal" id="closeAartiTicketModal"
+                    style="position: static; margin-top: 15px; font-size: 14px; text-decoration: underline; color: #6b7280;">Close
+                    Window</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="prasadModal">
+        <div class="custom-modal">
+            <i class="fas fa-times close-modal" id="closePrasadModal"></i>
+            <div class="modal-content">
+                <h2>Prasad Order</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                <div class="guidelines-box">
+                    <h4><i class="fas fa-truck"></i> Delivery Info:</h4>
+                    <p>• Prasad will be delivered within 4-5 working days.</p>
+                    <p>• Please provide accurate address and phone number.</p>
+                </div>
+                <form id="prasadForm" novalidate>
+                    <div class="selection-row">
+                        <div class="form-group">
+                            <label>Select Prasad Type *</label>
+                            <select id="prasadTypeSelect">
+                                <option value="Laddoo (500g) - ₹200" data-price="200">Laddoo (500g) - ₹200</option>
+                                <option value="Peda (500g) - ₹250" data-price="250">Peda (500g) - ₹250</option>
+                                <option value="Dry Fruit Bhog - ₹500" data-price="500">Dry Fruit Bhog - ₹500</option>
+                                <option value="Panchmeva (250g) - ₹300" data-price="300">Panchmeva (250g) - ₹300
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity *</label>
+                            <select id="prasadQuantitySelect">
+                                <option value="1">1 Pack</option>
+                                <option value="2">2 Packs</option>
+                                <option value="3">3 Packs</option>
+                                <option value="5">5 Packs</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="guest-card">
+                        <h4>Delivery Details</h4>
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="prasadName" required placeholder="Enter full name">
+                            <span class="error-msg">Name is required.</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" id="prasadPhone" required placeholder="Enter 10-digit mobile number"
+                                maxlength="10">
+                            <span class="error-msg">Valid 10-digit number required.</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Full Delivery Address *</label>
+                            <textarea id="prasadAddress" required placeholder="House No, Street, City, Pincode"
+                                rows="3"></textarea>
+                            <span class="error-msg">Address is required.</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn"><i class="fas fa-credit-card"></i> Proceed to Pay</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="prasadPaymentModal">
+        <div class="custom-modal" style="max-width: 450px;">
+            <div class="modal-content">
+                <h2>Complete Payment</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+
+                <div class="qr-container">
+                    <img id="qrCodeImage"
+                        src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=maa@temple"
+                        alt="Payment QR Code">
+                    <h3 id="paymentTotalAmount">₹0</h3>
+                    <p>Scan to pay using any UPI App</p>
+                </div>
+
+                <button type="button" class="submit-btn" id="confirmPaymentBtn"><i class="fas fa-check-circle"></i> I
+                    have made the payment</button>
+                <br><button class="close-modal" id="closePrasadPaymentModal"
+                    style="position: static; margin-top: 15px; font-size: 14px; text-decoration: underline; color: #6b7280; width:100%;">Cancel
+                    Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="prasadTicketModal">
+        <div class="custom-modal ticket-modal-custom">
+            <div class="ticket-wrapper" id="prasadTicketToDownload">
+                <div class="ticket-header">
+                    <h2>Maa Chamunda Devi Temple</h2>
+                    <p>Prasad Order Receipt</p>
+                    <p style="margin-top: 5px; font-weight: bold; color: #b91c1c;">Order ID: <span
+                            id="prasadTicketBookingId">#MC-00000</span></p>
+                </div>
+                <div class="ticket-details-grid">
+                    <div>
+                        <p>Prasad Details</p>
+                        <p id="prasadTicketDetails">0</p>
+                    </div>
+                    <div>
+                        <p>Amount Paid</p>
+                        <p id="prasadTicketAmount">₹0</p>
+                    </div>
+                    <div>
+                        <p>Expected Delivery</p>
+                        <p id="prasadTicketDeliveryDate">DD-MM-YYYY</p>
+                    </div>
+                </div>
+
+                <div class="delivery-box">
+                    <p>Deliver To:</p>
+                    <p><strong id="prasadTicketName">Name</strong><br>
+                        <span id="prasadTicketPhone">Phone</span><br>
+                        <span id="prasadTicketAddress">Address</span>
+                    </p>
+                </div>
+
+                <div class="ticket-footer">
+                    <p><strong>Note:</strong> Keep this receipt for tracking your order.</p>
+                    <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+                </div>
+            </div>
+            <div class="ticket-actions">
+                <button class="download-btn" id="downloadPrasadTicketBtn"><i class="fas fa-download"></i> Download
+                    Receipt</button>
+                <br><button class="close-modal" id="closePrasadTicketModal"
+                    style="position: static; margin-top: 15px; font-size: 14px; text-decoration: underline; color: #6b7280;">Close
+                    Window</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const processingOverlay = document.getElementById('processingOverlay');
+            const audio = document.getElementById('mantraAudio');
+            const processingText = document.getElementById('processingText');
+
+            function runProcessing(callback) {
+                processingOverlay.classList.add('show');
+                audio.play().catch(e => console.log("Audio blocked"));
+
+                let textSequence = ["Connecting to Dham...", "Verifying Details...", "Processing...", "Almost done..."];
+                let step = 0;
+                const textInterval = setInterval(() => {
+                    step++;
+                    if (step < textSequence.length) { processingText.innerText = textSequence[step]; }
+                }, 1500);
+
+                setTimeout(() => {
+                    clearInterval(textInterval);
+                    processingOverlay.classList.remove('show');
+                    audio.pause();
+                    audio.currentTime = 0;
+                    if (callback) callback();
+                }, 6000);
+            }
+
+            const today = new Date();
+            const maxDate = new Date();
+            maxDate.setMonth(maxDate.getMonth() + 1);
+            const formatDate = (date) => {
+                let d = new Date(date), month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear();
+                if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day;
+                return [year, month, day].join('-');
+            };
+            const minDateStr = formatDate(today);
+            const maxDateStr = formatDate(maxDate);
+
+            function generateGuestFields(adultSelect, childSelect, container) {
+                const adults = parseInt(adultSelect.value);
+                const children = parseInt(childSelect.value);
+                const total = adults + children;
+                container.innerHTML = '';
+
+                for (let i = 1; i <= total; i++) {
+                    let type = i <= adults ? 'Adult' : 'Child';
+                    container.innerHTML += `
+                        <div class="guest-card">
+                            <h4>Person ${i} (${type})</h4>
+                            <div class="guest-form-grid">
+                                <div class="form-group">
+                                    <label>Full Name *</label>
+                                    <input type="text" class="guest-name" required placeholder="Enter full name">
+                                    <span class="error-msg">Name is required.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Age *</label>
+                                    <input type="number" class="guest-age" data-type="${type}" required placeholder="Age" min="1" max="100">
+                                    <span class="error-msg">Valid age required.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>ID Proof Type *</label>
+                                    <select class="guest-id-type" required>
+                                        <option value="">Select ID</option>
+                                        <option value="Aadhar">Aadhar Card</option>
+                                        <option value="PAN">PAN Card</option>
+                                        <option value="Voter ID">Voter ID</option>
+                                    </select>
+                                    <span class="error-msg">ID type is required.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>ID Number *</label>
+                                    <input type="text" class="guest-id-num" required placeholder="Enter ID number">
+                                    <span class="error-msg">ID number is required.</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            function validateForm(container) {
+                let isValid = true;
+                container.querySelectorAll('.guest-card').forEach(card => {
+                    const name = card.querySelector('.guest-name');
+                    const age = card.querySelector('.guest-age');
+                    const idType = card.querySelector('.guest-id-type');
+                    const idNum = card.querySelector('.guest-id-num');
+
+                    if (!name.value.trim()) { name.closest('.form-group').classList.add('invalid'); isValid = false; }
+
+                    const ageVal = parseInt(age.value);
+                    const type = age.getAttribute('data-type');
+                    let ageValid = true;
+                    const ageErr = age.nextElementSibling;
+
+                    if (isNaN(ageVal) || ageVal < 1) { ageValid = false; ageErr.innerText = "Valid age required."; }
+                    else if (type === 'Adult' && ageVal < 10) { ageValid = false; ageErr.innerText = "Adult must be 10+."; }
+                    else if (type === 'Child' && ageVal >= 10) { ageValid = false; ageErr.innerText = "Child must be < 10."; }
+
+                    if (!ageValid) { age.closest('.form-group').classList.add('invalid'); isValid = false; }
+                    if (!idType.value) { idType.closest('.form-group').classList.add('invalid'); isValid = false; }
+                    if (!idNum.value.trim()) { idNum.closest('.form-group').classList.add('invalid'); isValid = false; }
+                });
+                return isValid;
+            }
+
+            function populateTicket(container, ticketIdField, ticketDateField, ticketGuestsField, ticketListBody, dateStr, adultCount, childCount) {
+                const randomId = Math.floor(10000 + Math.random() * 90000);
+                document.getElementById(ticketIdField).innerText = `#MC-${randomId}`;
+
+                const [y, m, d] = dateStr.split('-');
+                document.getElementById(ticketDateField).innerText = `${d}-${m}-${y}`;
+                const total = parseInt(adultCount) + parseInt(childCount);
+                document.getElementById(ticketGuestsField).innerText = `${total} Persons (${adultCount} Adult, ${childCount} Child)`;
+
+                let html = '';
+                container.querySelectorAll('.guest-card').forEach(card => {
+                    const name = card.querySelector('.guest-name').value;
+                    const age = card.querySelector('.guest-age').value;
+                    const type = card.querySelector('.guest-age').getAttribute('data-type');
+                    const idType = card.querySelector('.guest-id-type').value;
+                    const idNum = card.querySelector('.guest-id-num').value;
+                    html += `<tr><td>${name}</td><td>${age}</td><td>${type}</td><td>${idType} <br><small>(${idNum})</small></td></tr>`;
+                });
+                document.getElementById(ticketListBody).innerHTML = html;
+            }
+
+            function downloadElement(elementId, fileName) {
+                const el = document.getElementById(elementId);
+                html2canvas(el, { scale: 2, backgroundColor: "#ffffff" }).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `${fileName}_${Date.now()}.jpg`;
+                    link.href = canvas.toDataURL('image/jpeg', 0.9);
+                    link.click();
+                });
+            }
+
+            const accModal = document.getElementById('accommodationModal');
+            document.getElementById('cardAccommodation').addEventListener('click', (e) => { e.preventDefault(); accModal.classList.add('show'); generateGuestFields(accAdultSelect, accChildSelect, accGuestContainer); });
+            document.getElementById('closeAccommodationModal').addEventListener('click', () => accModal.classList.remove('show'));
+
+            const accAdultSelect = document.getElementById('accAdultCount');
+            const accChildSelect = document.getElementById('accChildCount');
+            const accGuestContainer = document.getElementById('accommodation-guest-container');
+            const accForm = document.getElementById('accommodationForm');
+
+            accAdultSelect.addEventListener('change', () => generateGuestFields(accAdultSelect, accChildSelect, accGuestContainer));
+            accChildSelect.addEventListener('change', () => generateGuestFields(accAdultSelect, accChildSelect, accGuestContainer));
+
+            accForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (validateForm(accGuestContainer)) {
+                    accModal.classList.remove('show');
+                    document.getElementById('accDateModal').classList.add('show');
+                    document.getElementById('accBookingDate').min = minDateStr;
+                    document.getElementById('accBookingDate').max = maxDateStr;
+                }
+            });
+
+            document.getElementById('closeAccDateModal').addEventListener('click', () => document.getElementById('accDateModal').classList.remove('show'));
+
+            document.getElementById('accDateForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const dateInput = document.getElementById('accBookingDate');
+                const errGroup = document.getElementById('accDateGroup');
+                const errMsg = document.getElementById('accDateErrorMsg');
+
+                if (!dateInput.value) { errGroup.classList.add('invalid'); errMsg.innerText = "Please select a date."; return; }
+
+                const requested = parseInt(accAdultSelect.value) + parseInt(accChildSelect.value);
+                const dateKey = 'beds_' + dateInput.value;
+                let booked = parseInt(localStorage.getItem(dateKey) || 0);
+
+                if (booked + requested > 300) {
+                    errGroup.classList.add('invalid'); errMsg.innerText = `Sorry, only ${300 - booked} beds left for this date.`; return;
+                }
+
+                errGroup.classList.remove('invalid');
+                document.getElementById('accDateModal').classList.remove('show');
+
+                runProcessing(() => {
+                    localStorage.setItem(dateKey, booked + requested);
+                    populateTicket(accGuestContainer, 'accTicketBookingId', 'accTicketDate', 'accTicketTotalGuests', 'accTicketGuestList', dateInput.value, accAdultSelect.value, accChildSelect.value);
+                    document.getElementById('accTicketModal').classList.add('show');
+                });
+            });
+
+            document.getElementById('downloadAccTicketBtn').addEventListener('click', () => downloadElement('accTicketToDownload', 'Accommodation_Ticket'));
+            document.getElementById('closeAccTicketModal').addEventListener('click', () => { document.getElementById('accTicketModal').classList.remove('show'); accForm.reset(); accGuestContainer.innerHTML = ''; });
+
+            const darshanModal = document.getElementById('darshanModal');
+            document.getElementById('cardDarshanBooking').addEventListener('click', (e) => { e.preventDefault(); darshanModal.classList.add('show'); generateGuestFields(darshanAdultSelect, darshanChildSelect, darshanGuestContainer); });
+            document.getElementById('closeDarshanModal').addEventListener('click', () => darshanModal.classList.remove('show'));
+
+            const darshanAdultSelect = document.getElementById('darshanAdultCount');
+            const darshanChildSelect = document.getElementById('darshanChildCount');
+            const darshanGuestContainer = document.getElementById('darshan-guest-container');
+            const darshanForm = document.getElementById('darshanForm');
+
+            darshanAdultSelect.addEventListener('change', () => generateGuestFields(darshanAdultSelect, darshanChildSelect, darshanGuestContainer));
+            darshanChildSelect.addEventListener('change', () => generateGuestFields(darshanAdultSelect, darshanChildSelect, darshanGuestContainer));
+
+            darshanForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (validateForm(darshanGuestContainer)) {
+                    darshanModal.classList.remove('show');
+                    document.getElementById('darshanDateModal').classList.add('show');
+                    document.getElementById('darshanBookingDate').min = minDateStr;
+                    document.getElementById('darshanBookingDate').max = maxDateStr;
+                }
+            });
+
+            document.getElementById('closeDarshanDateModal').addEventListener('click', () => document.getElementById('darshanDateModal').classList.remove('show'));
+
+            document.getElementById('darshanDateForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const dateInput = document.getElementById('darshanBookingDate');
+                const errGroup = document.getElementById('darshanDateGroup');
+                const errMsg = document.getElementById('darshanDateErrorMsg');
+
+                if (!dateInput.value) { errGroup.classList.add('invalid'); errMsg.innerText = "Please select a date."; return; }
+
+                errGroup.classList.remove('invalid');
+                document.getElementById('darshanDateModal').classList.remove('show');
+
+                runProcessing(() => {
+                    populateTicket(darshanGuestContainer, 'darshanTicketBookingId', 'darshanTicketDate', 'darshanTicketTotalGuests', 'darshanTicketGuestList', dateInput.value, darshanAdultSelect.value, darshanChildSelect.value);
+                    document.getElementById('darshanTicketModal').classList.add('show');
+                });
+            });
+
+            document.getElementById('downloadDarshanTicketBtn').addEventListener('click', () => downloadElement('darshanTicketToDownload', 'Darshan_Ticket'));
+            document.getElementById('closeDarshanTicketModal').addEventListener('click', () => { document.getElementById('darshanTicketModal').classList.remove('show'); darshanForm.reset(); darshanGuestContainer.innerHTML = ''; });
+
+            const poojaModal = document.getElementById('poojaModal');
+            document.getElementById('cardPoojaBooking').addEventListener('click', (e) => { e.preventDefault(); poojaModal.classList.add('show'); generateGuestFields(poojaAdultSelect, poojaChildSelect, poojaGuestContainer); });
+            document.getElementById('closePoojaModal').addEventListener('click', () => poojaModal.classList.remove('show'));
+
+            const poojaAdultSelect = document.getElementById('poojaAdultCount');
+            const poojaChildSelect = document.getElementById('poojaChildCount');
+            const poojaGuestContainer = document.getElementById('pooja-guest-container');
+            const poojaForm = document.getElementById('poojaForm');
+
+            poojaAdultSelect.addEventListener('change', () => generateGuestFields(poojaAdultSelect, poojaChildSelect, poojaGuestContainer));
+            poojaChildSelect.addEventListener('change', () => generateGuestFields(poojaAdultSelect, poojaChildSelect, poojaGuestContainer));
+
+            poojaForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (validateForm(poojaGuestContainer)) {
+                    poojaModal.classList.remove('show');
+                    document.getElementById('poojaDateModal').classList.add('show');
+                    document.getElementById('poojaBookingDate').min = minDateStr;
+                    document.getElementById('poojaBookingDate').max = maxDateStr;
+                }
+            });
+
+            document.getElementById('closePoojaDateModal').addEventListener('click', () => document.getElementById('poojaDateModal').classList.remove('show'));
+
+            document.getElementById('poojaDateForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const dateInput = document.getElementById('poojaBookingDate');
+                const errGroup = document.getElementById('poojaDateGroup');
+                const errMsg = document.getElementById('poojaDateErrorMsg');
+
+                if (!dateInput.value) { errGroup.classList.add('invalid'); errMsg.innerText = "Please select a date."; return; }
+
+                errGroup.classList.remove('invalid');
+                document.getElementById('poojaDateModal').classList.remove('show');
+
+                runProcessing(() => {
+                    populateTicket(poojaGuestContainer, 'poojaTicketBookingId', 'poojaTicketDate', 'poojaTicketTotalGuests', 'poojaTicketGuestList', dateInput.value, poojaAdultSelect.value, poojaChildSelect.value);
+                    const selectedPoojaType = document.getElementById('poojaTypeSelect').value;
+                    document.getElementById('poojaTicketType').innerText = selectedPoojaType;
+                    document.getElementById('poojaTicketModal').classList.add('show');
+                });
+            });
+
+            document.getElementById('downloadPoojaTicketBtn').addEventListener('click', () => downloadElement('poojaTicketToDownload', 'Pooja_Ticket'));
+            document.getElementById('closePoojaTicketModal').addEventListener('click', () => {
+                document.getElementById('poojaTicketModal').classList.remove('show');
+                poojaForm.reset();
+                poojaGuestContainer.innerHTML = '';
+            });
+
+            const aartiModal = document.getElementById('aartiModal');
+            document.getElementById('cardAartiBooking').addEventListener('click', (e) => { e.preventDefault(); aartiModal.classList.add('show'); generateGuestFields(aartiAdultSelect, aartiChildSelect, aartiGuestContainer); });
+            document.getElementById('closeAartiModal').addEventListener('click', () => aartiModal.classList.remove('show'));
+
+            const aartiAdultSelect = document.getElementById('aartiAdultCount');
+            const aartiChildSelect = document.getElementById('aartiChildCount');
+            const aartiGuestContainer = document.getElementById('aarti-guest-container');
+            const aartiForm = document.getElementById('aartiForm');
+
+            aartiAdultSelect.addEventListener('change', () => generateGuestFields(aartiAdultSelect, aartiChildSelect, aartiGuestContainer));
+            aartiChildSelect.addEventListener('change', () => generateGuestFields(aartiAdultSelect, aartiChildSelect, aartiGuestContainer));
+
+            aartiForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (validateForm(aartiGuestContainer)) {
+                    aartiModal.classList.remove('show');
+                    document.getElementById('aartiDateModal').classList.add('show');
+                    document.getElementById('aartiBookingDate').min = minDateStr;
+                    document.getElementById('aartiBookingDate').max = maxDateStr;
+                }
+            });
+
+            document.getElementById('closeAartiDateModal').addEventListener('click', () => document.getElementById('aartiDateModal').classList.remove('show'));
+
+            document.getElementById('aartiDateForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const dateInput = document.getElementById('aartiBookingDate');
+                const errGroup = document.getElementById('aartiDateGroup');
+                const errMsg = document.getElementById('aartiDateErrorMsg');
+
+                if (!dateInput.value) { errGroup.classList.add('invalid'); errMsg.innerText = "Please select a date."; return; }
+
+                errGroup.classList.remove('invalid');
+                document.getElementById('aartiDateModal').classList.remove('show');
+
+                runProcessing(() => {
+                    populateTicket(aartiGuestContainer, 'aartiTicketBookingId', 'aartiTicketDate', 'aartiTicketTotalGuests', 'aartiTicketGuestList', dateInput.value, aartiAdultSelect.value, aartiChildSelect.value);
+                    const selectedAartiTime = document.getElementById('aartiTimeSlot').value;
+                    document.getElementById('aartiTicketTime').innerText = selectedAartiTime;
+                    document.getElementById('aartiTicketModal').classList.add('show');
+                });
+            });
+
+            document.getElementById('downloadAartiTicketBtn').addEventListener('click', () => downloadElement('aartiTicketToDownload', 'Aarti_Ticket'));
+            document.getElementById('closeAartiTicketModal').addEventListener('click', () => {
+                document.getElementById('aartiTicketModal').classList.remove('show');
+                aartiForm.reset();
+                aartiGuestContainer.innerHTML = '';
+            });
+
+            const prasadModal = document.getElementById('prasadModal');
+            const prasadPaymentModal = document.getElementById('prasadPaymentModal');
+            const prasadForm = document.getElementById('prasadForm');
+
+            document.getElementById('cardPrasadBooking').addEventListener('click', (e) => {
+                e.preventDefault();
+                prasadModal.classList.add('show');
+            });
+            document.getElementById('closePrasadModal').addEventListener('click', () => prasadModal.classList.remove('show'));
+            document.getElementById('closePrasadPaymentModal').addEventListener('click', () => prasadPaymentModal.classList.remove('show'));
+
+            let totalPrasadAmount = 0;
+
+            prasadForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                prasadForm.querySelectorAll('.form-group').forEach(el => el.classList.remove('invalid'));
+
+                const name = document.getElementById('prasadName');
+                const phone = document.getElementById('prasadPhone');
+                const address = document.getElementById('prasadAddress');
+                let isValid = true;
+
+                if (!name.value.trim()) { name.closest('.form-group').classList.add('invalid'); isValid = false; }
+                if (!phone.value.trim() || phone.value.length < 10) { phone.closest('.form-group').classList.add('invalid'); isValid = false; }
+                if (!address.value.trim()) { address.closest('.form-group').classList.add('invalid'); isValid = false; }
+
+                if (!isValid) return;
+
+                const typeSelect = document.getElementById('prasadTypeSelect');
+                const selectedOption = typeSelect.options[typeSelect.selectedIndex];
+                const pricePerUnit = parseInt(selectedOption.getAttribute('data-price'));
+                const quantity = parseInt(document.getElementById('prasadQuantitySelect').value);
+                totalPrasadAmount = pricePerUnit * quantity;
+
+                document.getElementById('paymentTotalAmount').innerText = `₹${totalPrasadAmount}`;
+
+                const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=maa@temple&am=${totalPrasadAmount}`;
+                document.getElementById('qrCodeImage').src = qrUrl;
+
+                prasadModal.classList.remove('show');
+                prasadPaymentModal.classList.add('show');
+            });
+
+            document.getElementById('confirmPaymentBtn').addEventListener('click', () => {
+                prasadPaymentModal.classList.remove('show');
+
+                runProcessing(() => {
+                    const randomId = Math.floor(10000 + Math.random() * 90000);
+                    document.getElementById('prasadTicketBookingId').innerText = `#MC-${randomId}`;
+
+                    const typeSelect = document.getElementById('prasadTypeSelect');
+                    const selectedTypeText = typeSelect.options[typeSelect.selectedIndex].text.split('-')[0].trim();
+                    const quantity = document.getElementById('prasadQuantitySelect').value;
+
+                    document.getElementById('prasadTicketDetails').innerText = `${quantity} x ${selectedTypeText}`;
+                    document.getElementById('prasadTicketAmount').innerText = `₹${totalPrasadAmount}`;
+
+                    const deliveryDate = new Date();
+                    deliveryDate.setDate(deliveryDate.getDate() + 4);
+                    document.getElementById('prasadTicketDeliveryDate').innerText = formatDate(deliveryDate).split('-').reverse().join('-');
+
+                    document.getElementById('prasadTicketName').innerText = document.getElementById('prasadName').value;
+                    document.getElementById('prasadTicketPhone').innerText = document.getElementById('prasadPhone').value;
+                    document.getElementById('prasadTicketAddress').innerText = document.getElementById('prasadAddress').value;
+
+                    document.getElementById('prasadTicketModal').classList.add('show');
+                });
+            });
+
+            document.getElementById('downloadPrasadTicketBtn').addEventListener('click', () => downloadElement('prasadTicketToDownload', 'Prasad_Receipt'));
+            document.getElementById('closePrasadTicketModal').addEventListener('click', () => {
+                document.getElementById('prasadTicketModal').classList.remove('show');
+                prasadForm.reset();
+                totalPrasadAmount = 0;
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

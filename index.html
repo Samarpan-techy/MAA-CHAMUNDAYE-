@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maa Chamunda Devi Temple</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-red: #b91c1c;
+            --dark-red: #7f1d1d;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --bg-cream: #fef8f5;
+            --footer-bg: #1f1513;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Utility Classes */
+        .mt-5 {
+            margin-top: 5px;
+        }
+
+        .mt-10 {
+            margin-top: 10px;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mt-44 {
+            margin-top: 44px;
+        }
+
+        .mb-0 {
+            margin-bottom: 0 !important;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .sub-text {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: #4a1313;
+            color: #f3e5e5;
+            font-size: 13px;
+            padding: 8px 0;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar i {
+            margin-right: 5px;
+            color: #fbbf24;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ffffff;
+            padding: 15px 0;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 35px;
+            color: #dc2626;
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            color: #991b1b;
+            margin-bottom: -2px;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-red);
+            cursor: pointer;
+        }
+
+        .btn-seva {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-seva:hover {
+            background-color: var(--dark-red);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6));
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-shloka {
+            font-size: 18px;
+            color: #fbbf24;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 64px;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            color: #fbbf24;
+        }
+
+        .hero p.subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .hero-divider {
+            width: 150px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .hero-divider::after {
+            content: '❖';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fbbf24;
+            font-size: 14px;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            margin-bottom: 40px;
+            color: #e5e7eb;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-red);
+        }
+
+        .btn-primary.btn-sm {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid white;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--text-dark);
+        }
+
+        /* Quick Links */
+        .quick-links-wrapper {
+            position: relative;
+            margin-top: -50px;
+            z-index: 10;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+
+        .ql-card {
+            background: white;
+            padding: 20px 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .ql-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .ql-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .ql-card:nth-child(1) .ql-icon {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .ql-card:nth-child(2) .ql-icon {
+            background: #e0f2fe;
+            color: #0284c7;
+        }
+
+        .ql-card:nth-child(3) .ql-icon {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .ql-card:nth-child(4) .ql-icon {
+            background: #f3e8ff;
+            color: #9333ea;
+        }
+
+        .ql-card:nth-child(5) .ql-icon {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .ql-card:nth-child(6) .ql-icon {
+            background: #e0f2fe;
+            color: #0284c7;
+        }
+
+        .ql-text h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .ql-text p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 80px 0;
+            background: #ffffff;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            color: var(--primary-red);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .section-title span::after {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background: var(--primary-red);
+        }
+
+        .section-title h2 {
+            font-family: var(--font-heading);
+            font-size: 42px;
+            color: var(--text-dark);
+        }
+
+        .section-title h2 span {
+            color: var(--primary-red);
+            font-family: var(--font-heading);
+            font-size: 42px;
+            display: inline;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .section-title h2 span::after {
+            display: none;
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .btn-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--primary-red);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-arrow:hover {
+            background-color: var(--dark-red);
+        }
+
+        .about-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 20px;
+        }
+
+        .about-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f3f4f6;
+            transition: 0.3s;
+        }
+
+        .about-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: #e5e7eb;
+        }
+
+        .about-card.big {
+            grid-row: span 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .about-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .about-card-icon {
+            width: 30px;
+            height: 30px;
+            background: #fef2f2;
+            color: var(--primary-red);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .about-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .about-card p {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .about-card img {
+            height: 150px;
+            width: 100%;
+            object-fit: cover;
+            margin-top: 10px;
+        }
+
+        .about-card .about-card-img {
+            height: 100px;
+            margin-top: 15px;
+            object-fit: cover;
+        }
+
+        .about-card.big img {
+            height: 250px;
+        }
+
+        .about-card.big iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 250px;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 60px 0;
+            background: var(--bg-cream);
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 30px;
+        }
+
+        .gallery-slider {
+            display: flex;
+            gap: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-slider img {
+            width: calc(25% - 15px);
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .gallery-slider img:hover {
+            transform: scale(1.02);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .slider-arrow.left {
+            left: -20px;
+        }
+
+        .slider-arrow.right {
+            right: -20px;
+        }
+
+        /* Reach Section */
+        .reach-section {
+            padding: 80px 0;
+            background: #ffffff;
+        }
+
+        .reach-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .reach-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .reach-card {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .reach-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: #e5e7eb;
+            transform: translateY(-2px);
+        }
+
+        .reach-card-icon {
+            font-size: 24px;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+        }
+
+        .reach-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .reach-card p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .reach-link {
+            font-size: 13px;
+            color: var(--primary-red);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: #d1d5db;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-logo i {
+            font-size: 30px;
+            color: #fbbf24;
+        }
+
+        .footer-logo h3 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+        }
+
+        .footer-logo p {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .footer-about p {
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #9ca3af;
+            line-height: 1.8;
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: #9ca3af;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-links a::before {
+            content: '›';
+            font-size: 18px;
+            color: #fbbf24;
+        }
+
+        .footer-contact li {
+            display: flex;
+            gap: 10px;
+            font-size: 14px;
+            color: #9ca3af;
+            margin-bottom: 15px;
+        }
+
+        .footer-contact i {
+            color: #fbbf24;
+            margin-top: 4px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        .footer-bottom span {
+            color: #ef4444;
+        }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .custom-modal {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: translateY(20px);
+            transition: 0.3s;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.show .custom-modal {
+            transform: translateY(0);
+        }
+
+        .custom-modal.modal-sm {
+            max-width: 400px;
+        }
+
+        .custom-modal.modal-md {
+            max-width: 700px;
+        }
+
+        .custom-modal.modal-lg {
+            max-width: 800px;
+        }
+
+        .custom-modal.modal-reach {
+            max-width: 600px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: 0.2s;
+            z-index: 10;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-red);
+            transform: scale(1.1);
+        }
+
+        /* Processing Overlay */
+        .processing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 10, 10, 0.95);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .processing-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mantra-text {
+            font-family: var(--font-heading);
+            font-size: 45px;
+            color: #fbbf24;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+            animation: pulse-glow 2s infinite alternate;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(251, 191, 36, 0.2);
+            border-top: 4px solid #fbbf24;
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .processing-text {
+            font-size: 18px;
+            color: #d1d5db;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                transform: scale(0.98);
+                text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+            }
+
+            100% {
+                transform: scale(1.02);
+                text-shadow: 0 0 30px rgba(251, 191, 36, 0.9);
+            }
+        }
+
+        /* Auth Modal */
+        .auth-tabs {
+            display: flex;
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 25px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #9ca3af;
+            cursor: pointer;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .auth-tab.active {
+            color: var(--primary-red);
+        }
+
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-red);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
+        }
+
+        .form-group.invalid input {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .form-group.invalid .error-msg {
+            display: block;
+        }
+
+        .auth-submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .auth-submit-btn:hover {
+            background: var(--dark-red);
+        }
+
+        /* Content Modals Common */
+        .about-modal-content h2 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .about-modal-content .shloka {
+            text-align: center;
+            color: #d97706;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .about-modal-content p {
+            font-size: 14.5px;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .about-modal-content strong {
+            color: var(--dark-red);
+        }
+
+        .darshan-modal-content h2 {
+            font-family: var(--font-heading);
+            font-size: 26px;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .gallery-modal-content h2 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .reach-modal-content h2 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .reach-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #f3f4f6;
+        }
+
+        .reach-item-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fee2e2;
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .reach-item-icon.sun-icon {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .reach-item-icon.moon-icon {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+
+        .reach-item-icon.fire-icon {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .reach-item-icon.bell-icon {
+            background: #fce7f3;
+            color: #db2777;
+        }
+
+        .reach-item-text h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .reach-item-text p {
+            font-size: 13.5px;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .modal-note {
+            text-align: center;
+            font-size: 13px;
+            color: gray;
+            margin-top: 15px;
+        }
+
+        .facilities-modal-content h2 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .facility-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f9fafb;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #f3f4f6;
+        }
+
+        .facility-item i {
+            color: var(--primary-red);
+            font-size: 18px;
+        }
+
+        .facility-item span {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .contact-modal-content h2 {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        .contact-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #fee2e2;
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .contact-text h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 3px;
+        }
+
+        .contact-text p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .quick-links {
+                grid-template-columns: repeat(3, 1fr);
+                margin-top: 20px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .about-grid,
+            .reach-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-slider img {
+                width: calc(33.33% - 10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar .container {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+
+            .navbar .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                height: auto;
+                padding: 100px 0;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .quick-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-card.big {
+                grid-row: auto;
+            }
+
+            .gallery-slider img {
+                width: calc(50% - 10px);
+            }
+
+            .reach-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .mantra-text {
+                font-size: 28px;
+            }
+
+            .custom-modal {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid img {
+                height: 250px;
+            }
+
+            .facilities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="processing-overlay" id="processingOverlay">
+        <div class="mantra-text">|| Jai Maa Chamunda Devi ||</div>
+        <div class="loading-spinner"></div>
+        <div class="processing-text" id="processingText">Connecting to Dham...</div>
+        <audio id="mantraAudio" loop>
+            <source src="merimaa.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div class="modal-overlay" id="authModal">
+        <div class="custom-modal">
+            <i class="fas fa-times close-modal" id="closeAuthModal"></i>
+
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tabLogin">Login</div>
+                <div class="auth-tab" id="tabRegister">Register</div>
+            </div>
+
+            <form class="auth-form active" id="formLogin" novalidate>
+                <div class="form-group" id="loginIdGroup">
+                    <label>Email / Phone</label>
+                    <input type="text" id="loginId" placeholder="Enter your email or 10-digit phone">
+                    <span class="error-msg" id="loginIdError">Please enter a valid email (with @ and .) or 10-digit
+                        phone.</span>
+                </div>
+                <div class="form-group" id="loginPassGroup">
+                    <label>Password</label>
+                    <input type="password" id="loginPass" placeholder="Enter your password">
+                    <span class="error-msg" id="loginPassError">Password must be at least 6 characters.</span>
+                </div>
+                <button type="submit" class="auth-submit-btn">Login to Book</button>
+            </form>
+
+            <form class="auth-form" id="formRegister" novalidate>
+                <div class="form-group" id="regNameGroup">
+                    <label>Full Name</label>
+                    <input type="text" id="regName" placeholder="Enter your full name">
+                    <span class="error-msg" id="regNameError">Please enter your full name.</span>
+                </div>
+                <div class="form-group" id="regIdGroup">
+                    <label>Email / Phone</label>
+                    <input type="text" id="regId" placeholder="Enter your email or 10-digit phone">
+                    <span class="error-msg" id="regIdError">Please enter a valid email (with @ and .) or 10-digit
+                        phone.</span>
+                </div>
+                <div class="form-group" id="regPassGroup">
+                    <label>Password</label>
+                    <input type="password" id="regPass" placeholder="Create a strong password">
+                    <span class="error-msg" id="regPassError">Password must be at least 6 characters.</span>
+                </div>
+                <button type="submit" class="auth-submit-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="darshanTimingModal">
+        <div class="custom-modal modal-sm">
+            <i class="fas fa-times close-modal" id="closeDarshanTimingModal"></i>
+            <div class="about-modal-content">
+                <h2>Darshan Timings</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+
+                <div class="reach-item mt-20">
+                    <div class="reach-item-icon sun-icon"><i class="far fa-sun"></i></div>
+                    <div class="reach-item-text">
+                        <h4>Morning Darshan</h4>
+                        <p>5:00 AM to 12:00 PM</p>
+                    </div>
+                </div>
+
+                <div class="reach-item">
+                    <div class="reach-item-icon moon-icon"><i class="far fa-moon"></i></div>
+                    <div class="reach-item-text">
+                        <h4>Evening Darshan</h4>
+                        <p>1:00 PM to 9:00 PM</p>
+                    </div>
+                </div>
+
+                <p class="modal-note">*Timings may vary during festivals and special occasions.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="aartiTimingModal">
+        <div class="custom-modal modal-sm">
+            <i class="fas fa-times close-modal" id="closeAartiTimingModal"></i>
+            <div class="about-modal-content">
+                <h2>Aarti Schedule</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+
+                <div class="reach-item mt-20">
+                    <div class="reach-item-icon fire-icon"><i class="fas fa-fire"></i></div>
+                    <div class="reach-item-text">
+                        <h4>Morning Aarti</h4>
+                        <p>5:30 AM</p>
+                    </div>
+                </div>
+
+                <div class="reach-item">
+                    <div class="reach-item-icon bell-icon"><i class="fas fa-bell"></i></div>
+                    <div class="reach-item-text">
+                        <h4>Evening Aarti</h4>
+                        <p>7:00 PM</p>
+                    </div>
+                </div>
+
+                <p class="modal-note">Join us in the divine chants and seek blessings.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="aboutModal">
+        <div class="custom-modal">
+            <i class="fas fa-times close-modal" id="closeAboutModal"></i>
+            <div class="about-modal-content">
+                <h2>About Maa Chamunda Devi</h2>
+                <div class="shloka">|| Jai Maa Chamunda Devi ||</div>
+
+                <p><strong>Maa Chamunda Devi Temple</strong> is one of the most revered Shakti Peeths located in the
+                    Kangra district of Himachal Pradesh. The temple is dedicated to Maa Chamunda, a fierce form of
+                    Goddess Durga, who symbolizes the power to destroy evil and protect her devotees.</p>
+
+                <p>According to ancient legends, this temple is believed to be the place where Goddess Durga killed the
+                    demons Chanda and Munda. The idol of the Goddess is considered highly divine and is adorned with a
+                    beautiful silver face and intricate jewelry.</p>
+
+                <p>Situated on the banks of the River Baner with the majestic Dhauladhar mountain range in the backdrop,
+                    the temple is a spiritual and scenic destination. It offers a serene environment for meditation and
+                    seeking blessings.</p>
+
+                <p>Thousands of devotees visit this holy shrine every year, especially during the festival of
+                    <strong>Navratri</strong>, to seek the blessings of Maa Chamunda for strength, protection, and
+                    prosperity.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="darshanModal">
+        <div class="custom-modal modal-lg">
+            <i class="fas fa-times close-modal" id="closeDarshanModal"></i>
+            <div class="darshan-modal-content">
+                <h2>Live Darshan - Maa Chamunda Devi</h2>
+                <div class="video-container">
+                    <iframe id="liveVideo" src="https://www.youtube.com/embed/_5do4JFFe_8?autoplay=0&rel=0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="galleryModal">
+        <div class="custom-modal modal-md">
+            <i class="fas fa-times close-modal" id="closeGalleryModal"></i>
+            <div class="gallery-modal-content">
+                <h2>Temple Gallery</h2>
+                <div class="gallery-grid">
+                    <img src="img1.jpg" alt="Temple View">
+                    <img src="img2.jpg" alt="Maa Chamunda Devi">
+                    <img src="img1.jpg" alt="Temple View 2">
+                    <img src="img2.jpg" alt="Deity View">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="reachModal">
+        <div class="custom-modal modal-reach">
+            <i class="fas fa-times close-modal" id="closeReachModal"></i>
+            <div class="reach-modal-content">
+                <h2>How to Reach</h2>
+
+                <div class="reach-item">
+                    <div class="reach-item-icon"><i class="fas fa-car"></i></div>
+                    <div class="reach-item-text">
+                        <h4>By Road</h4>
+                        <p>Maa Chamunda Devi Temple is well-connected by road. It is approx 15 km from Dharamshala, 16
+                            km from Kangra, and 10 km from Palampur. You can easily hire a taxi or take a local HRTC bus
+                            from these cities to reach the temple directly.</p>
+                    </div>
+                </div>
+
+                <div class="reach-item">
+                    <div class="reach-item-icon"><i class="fas fa-train"></i></div>
+                    <div class="reach-item-text">
+                        <h4>By Train</h4>
+                        <p>The nearest broad-gauge railway station is Pathankot (approx 85 km). From Pathankot, you can
+                            take the scenic Kangra Valley narrow-gauge toy train to Kangra station. From Kangra, taxis
+                            and buses are readily available for the temple.</p>
+                    </div>
+                </div>
+
+                <div class="reach-item">
+                    <div class="reach-item-icon"><i class="fas fa-plane"></i></div>
+                    <div class="reach-item-text">
+                        <h4>By Air</h4>
+                        <p>The nearest airport is Gaggal Airport (Kangra Airport), which is approx 20 km away from the
+                            temple. It has regular flights connecting to Delhi and other major cities. From the airport,
+                            you can hire a taxi to reach the shrine.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="facilitiesModal">
+        <div class="custom-modal">
+            <i class="fas fa-times close-modal" id="closeFacilitiesModal"></i>
+            <div class="facilities-modal-content">
+                <h2>Temple Facilities</h2>
+
+                <div class="facilities-grid">
+                    <div class="facility-item">
+                        <i class="fas fa-parking"></i>
+                        <span>Free Parking</span>
+                    </div>
+                    <div class="facility-item">
+                        <i class="fas fa-shoe-prints"></i>
+                        <span>Shoe Stand</span>
+                    </div>
+                    <div class="facility-item">
+                        <i class="fas fa-wheelchair"></i>
+                        <span>Wheelchair Access</span>
+                    </div>
+                    <div class="facility-item">
+                        <i class="fas fa-restroom"></i>
+                        <span>Clean Washrooms</span>
+                    </div>
+                    <div class="facility-item">
+                        <i class="fas fa-tint"></i>
+                        <span>Drinking Water</span>
+                    </div>
+                    <div class="facility-item">
+                        <i class="fas fa-box-open"></i>
+                        <span>Prasad Counter</span>
+                    </div>
+                    <div class="facility-item">
+                        <i class="fas fa-tshirt"></i>
+                        <span>Cloakroom</span>
+                    </div>
+                    <div class="facility-item">
+                        <i class="fas fa-first-aid"></i>
+                        <span>First Aid</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="contactModal">
+        <div class="custom-modal">
+            <i class="fas fa-times close-modal" id="closeContactModal"></i>
+            <div class="contact-modal-content">
+                <h2>Contact Us</h2>
+
+                <ul class="contact-list">
+                    <li>
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-text">
+                            <h4>Temple Address</h4>
+                            <p>Maa Chamunda Devi Temple,<br>Chamunda, Kangra,<br>Himachal Pradesh - 176052</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="contact-text">
+                            <h4>Phone Number</h4>
+                            <p>+91-XXXXXXXXXX<br>+91-XXXXXXXXXX</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-text">
+                            <h4>Email Address</h4>
+                            <p>info@maachamundadevi.in</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="top-bar">
+        <div class="container">
+            <div><i class="fas fa-map-marker-alt"></i> Chamunda, Kangra, Himachal Pradesh</div>
+            <div>|| Jai Maa Chamunda Devi ||</div>
+            <div><i class="far fa-clock"></i> Darshan Timing: 5:00 AM - 9:00 PM</div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-om logo-icon"></i>
+                <div class="logo-text">
+                    <h1>Maa Chamunda Devi</h1>
+                    <p>Nandikeshwar Dham, Himachal Pradesh</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#" id="navAboutLink">About</a></li>
+                <li><a href="#" id="navDarshanLink">Darshan</a></li>
+                <li><a href="#" id="navGalleryLink">Gallery</a></li>
+                <li><a href="#" id="navReachLink">How to Reach</a></li>
+                <li><a href="#" id="navFacilitiesLink">Facilities</a></li>
+                <li><a href="#" id="navContactLink">Contact</a></li>
+            </ul>
+            <button class="btn-seva" id="onlineSevaBtn"><i class="fas fa-hands-praying"></i> Online Seva</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="slide active" style="background-image: url('img1.jpg');"></div>
+            <div class="slide" style="background-image: url('img2.jpg');"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-shloka">|| Jai Maa Chamunda Devi ||</div>
+            <h1>Maa <span>Chamunda Devi</span></h1>
+            <p class="subtitle">Nandikeshwar Dham, Kangra, Himachal Pradesh</p>
+            <div class="hero-divider"></div>
+            <p class="hero-desc">A Sacred Shakti Peeth of Unwavering Faith<br>Blessing Devotees with Strength,
+                Protection and Prosperity</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" id="bookDarshanBtn">Book Darshan <i class="fas fa-arrow-right"></i></button>
+                <!-- Added ID to Explore Temple button -->
+                <button class="btn-outline" id="exploreTempleBtn"><i class="fas fa-play"></i> Explore Temple</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="container quick-links-wrapper">
+        <div class="quick-links">
+            <div class="ql-card" id="cardDarshanTiming">
+                <div class="ql-icon"><i class="fas fa-hands-praying"></i></div>
+                <div class="ql-text">
+                    <h4>Darshan Timing</h4>
+                    <p>View Details</p>
+                </div>
+            </div>
+            <div class="ql-card" id="cardAartiSchedule">
+                <div class="ql-icon"><i class="fas fa-calendar-alt"></i></div>
+                <div class="ql-text">
+                    <h4>Aarti Schedule</h4>
+                    <p>Check Timings</p>
+                </div>
+            </div>
+            <div class="ql-card" id="cardHowToReach">
+                <div class="ql-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="ql-text">
+                    <h4>How to Reach</h4>
+                    <p>Route & Travel</p>
+                </div>
+            </div>
+            <div class="ql-card" id="cardPhotoGallery">
+                <div class="ql-icon"><i class="fas fa-images"></i></div>
+                <div class="ql-text">
+                    <h4>Photo Gallery</h4>
+                    <p>View Photos</p>
+                </div>
+            </div>
+            <div class="ql-card" id="cardOnlineSeva">
+                <div class="ql-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <div class="ql-text">
+                    <h4>Online Seva</h4>
+                    <p>Contribute</p>
+                </div>
+            </div>
+            <div class="ql-card" id="cardTempleHistory">
+                <div class="ql-icon"><i class="fas fa-info-circle"></i></div>
+                <div class="ql-text">
+                    <h4>Temple History</h4>
+                    <p>Know More</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="about-section">
+        <div class="container about-grid">
+            <div class="about-text">
+                <div class="section-title">
+                    <span><i class="fas fa-om"></i> About Temple</span>
+                    <h2>About <span>Maa Chamunda Devi</span></h2>
+                </div>
+                <p>Maa Chamunda Devi Temple is one of the most revered Shakti Peeths located in Chamunda, Kangra
+                    district of Himachal Pradesh. The temple is dedicated to Maa Chamunda, a fierce form of Goddess
+                    Durga, who symbolizes the power to destroy evil and protect her devotees.</p>
+                <p>Situated on the banks of the River Baner with the majestic Dhauladhar mountain range in the backdrop,
+                    the temple is a spiritual and scenic destination for thousands of devotees each year.</p>
+                <a href="#" class="btn-arrow" id="readHistoryBtn">Read Full History <i
+                        class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="about-cards-grid">
+                <div class="about-card big">
+                    <div>
+                        <div class="about-card-header">
+                            <div class="about-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <h4>Temple Location</h4>
+                                <p>Chamunda, Kangra</p>
+                            </div>
+                        </div>
+                        <iframe
+                            src="https://maps.google.com/maps?q=Chamunda%20Devi%20Temple,%20Kangra&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <div class="about-card cursor-pointer" id="aboutCardDarshan">
+                    <div class="about-card-header">
+                        <div class="about-card-icon"><i class="far fa-clock"></i></div>
+                        <div>
+                            <h4>Darshan Timing</h4>
+                            <p>5:00 AM - 9:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="about-card-header mt-20">
+                        <div class="about-card-icon"><i class="fas fa-fire"></i></div>
+                        <div>
+                            <h4>Aarti Timing</h4>
+                            <p>Morning Aarti: 5:30 AM<br>Evening Aarti: 7:00 PM</p>
+                        </div>
+                    </div>
+                    <img src="img2.jpg" alt="Aarti" class="about-card-img">
+                </div>
+
+                <div class="about-card">
+                    <div class="about-card-header">
+                        <div class="about-card-icon"><i class="fas fa-chart-line"></i></div>
+                        <div>
+                            <h4>Best Time to Visit</h4>
+                            <p>Throughout the Year<br>(Especially Navratri)</p>
+                        </div>
+                    </div>
+                    <img src="img1.jpg" alt="Dhauladhar Mountains" class="about-card-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-header">
+                <div class="section-title mb-0">
+                    <span><i class="fas fa-camera"></i> Temple Gallery</span>
+                    <h2>Beautiful <span>Moments</span></h2>
+                    <p class="sub-text mt-5">Explore the divine beauty of Maa Chamunda Devi Temple</p>
+                </div>
+                <a href="#" class="btn-primary btn-sm" id="viewAllPhotosBtn">View All Photos <i
+                        class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="gallery-slider">
+                <div class="slider-arrow left"><i class="fas fa-chevron-left"></i></div>
+                <img src="img1.jpg" alt="Gallery 1">
+                <img src="img2.jpg" alt="Gallery 2">
+                <img src="img1.jpg" alt="Gallery 3">
+                <img src="img2.jpg" alt="Gallery 4">
+                <div class="slider-arrow right"><i class="fas fa-chevron-right"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reach-section">
+        <div class="container reach-grid">
+            <div class="section-title">
+                <span><i class="fas fa-map-marker-alt"></i> How To Reach</span>
+                <h2>Plan Your <span>Visit</span></h2>
+                <p class="sub-text mt-10">Easily reach Maa Chamunda Devi Temple by road, rail or air</p>
+            </div>
+
+            <div class="reach-cards">
+                <div class="reach-card" id="reachCardRoad">
+                    <div class="reach-card-icon"><i class="fas fa-car"></i></div>
+                    <h4>By Road</h4>
+                    <p>Well connected by road from Dharamshala, Kangra and nearby cities.</p>
+                    <a href="#" class="reach-link">View Route <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="reach-card" id="reachCardTrain">
+                    <div class="reach-card-icon"><i class="fas fa-train"></i></div>
+                    <h4>By Train</h4>
+                    <p>Nearest railway station: Kangra (approx. 16 km).</p>
+                    <a href="#" class="reach-link">View Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="reach-card" id="reachCardAir">
+                    <div class="reach-card-icon"><i class="fas fa-plane"></i></div>
+                    <h4>By Air</h4>
+                    <p>Nearest airport: Gaggal Airport (approx. 20 km).</p>
+                    <a href="#" class="reach-link">View Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <i class="fas fa-om"></i>
+                    <div>
+                        <h3>Maa Chamunda Devi</h3>
+                        <p>Nandikeshwar Dham, Himachal Pradesh</p>
+                    </div>
+                </div>
+                <p>A sacred Shakti Peeth blessing devotees with divine power, protection and prosperity.</p>
+            </div>
+
+            <div>
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#" id="footerAboutLink">About Temple</a></li>
+                    <li><a href="#" id="footerDarshanLink">Darshan & Aarti</a></li>
+                    <li><a href="#" id="footerGalleryLink">Gallery</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-title">&nbsp;</h4>
+                <ul class="footer-links mt-44">
+                    <li><a href="#" id="footerReachLink">How to Reach</a></li>
+                    <li><a href="#" id="footerFacilitiesLink">Facilities</a></li>
+                    <li><a href="#" id="footerOnlineSevaLink">Online Seva</a></li>
+                    <li><a href="#" id="footerContactLink">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-title">Contact Information</h4>
+                <ul class="footer-contact">
+                    <li><i class="fas fa-map-marker-alt"></i> Chamunda, Kangra, Himachal Pradesh</li>
+                    <li><i class="fas fa-phone-alt"></i> +91-XXXXXXXXXX</li>
+                    <li><i class="fas fa-envelope"></i> info@maachamundadevi.in</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <div>© 2025 Maa Chamunda Devi Temple. All Rights Reserved.</div>
+            <div>Designed with <span>❤</span> for Devotees</div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+            function nextSlide() {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+            setInterval(nextSlide, 4000);
+
+            const bookBtn = document.getElementById('bookDarshanBtn');
+            const onlineSevaBtn = document.getElementById('onlineSevaBtn');
+            const cardOnlineSeva = document.getElementById('cardOnlineSeva');
+            const footerOnlineSevaLink = document.getElementById('footerOnlineSevaLink');
+
+            const processingOverlay = document.getElementById('processingOverlay');
+            const audio = document.getElementById('mantraAudio');
+            const processingText = document.getElementById('processingText');
+
+            const authModal = document.getElementById('authModal');
+            const closeAuthModal = document.getElementById('closeAuthModal');
+            const tabLogin = document.getElementById('tabLogin');
+            const tabRegister = document.getElementById('tabRegister');
+            const formLogin = document.getElementById('formLogin');
+            const formRegister = document.getElementById('formRegister');
+
+            function startProcessing() {
+                processingOverlay.classList.add('show');
+                audio.play().catch(e => console.log("Audio file missing or blocked."));
+
+                let textSequence = [
+                    "Connecting to Dham...",
+                    "Processing your Request...",
+                    "Seeking Blessings of Maa Chamunda...",
+                    "Almost done..."
+                ];
+                let step = 0;
+                const textInterval = setInterval(() => {
+                    step++;
+                    if (step < textSequence.length) { processingText.innerText = textSequence[step]; }
+                }, 1500);
+
+                setTimeout(() => {
+                    clearInterval(textInterval);
+                    processingOverlay.classList.remove('show');
+                    audio.pause();
+                    audio.currentTime = 0;
+
+                    setTimeout(() => {
+                        authModal.classList.add('show');
+                    }, 500);
+
+                }, 6000);
+            }
+
+            bookBtn.addEventListener('click', startProcessing);
+            onlineSevaBtn.addEventListener('click', startProcessing);
+            cardOnlineSeva.addEventListener('click', startProcessing);
+
+            if (footerOnlineSevaLink) {
+                footerOnlineSevaLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    startProcessing();
+                });
+            }
+
+            closeAuthModal.addEventListener('click', () => authModal.classList.remove('show'));
+            authModal.addEventListener('click', (e) => { if (e.target === authModal) authModal.classList.remove('show'); });
+
+            tabLogin.addEventListener('click', () => {
+                tabLogin.classList.add('active'); tabRegister.classList.remove('active');
+                formLogin.classList.add('active'); formRegister.classList.remove('active');
+            });
+            tabRegister.addEventListener('click', () => {
+                tabRegister.classList.add('active'); tabLogin.classList.remove('active');
+                formRegister.classList.add('active'); formLogin.classList.remove('active');
+            });
+
+            function setError(groupId) { document.getElementById(groupId).classList.add('invalid'); }
+            function clearError(groupId) { document.getElementById(groupId).classList.remove('invalid'); }
+            function isValidEmailOrPhone(value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const phoneRegex = /^\d{10}$/;
+                return emailRegex.test(value) || phoneRegex.test(value);
+            }
+
+            document.querySelectorAll('.form-group input').forEach(input => {
+                input.addEventListener('input', () => {
+                    input.closest('.form-group').classList.remove('invalid');
+                });
+            });
+
+            formLogin.addEventListener('submit', (e) => {
+                e.preventDefault(); let isValid = true;
+                const loginId = document.getElementById('loginId').value.trim();
+                const loginPass = document.getElementById('loginPass').value.trim();
+
+                if (!isValidEmailOrPhone(loginId)) { setError('loginIdGroup'); isValid = false; } else { clearError('loginIdGroup'); }
+                if (loginPass.length < 6) { setError('loginPassGroup'); isValid = false; } else { clearError('loginPassGroup'); }
+                if (isValid) { window.location.href = 'dashboard.html'; }
+            });
+
+            formRegister.addEventListener('submit', (e) => {
+                e.preventDefault(); let isValid = true;
+                const regName = document.getElementById('regName').value.trim();
+                const regId = document.getElementById('regId').value.trim();
+                const regPass = document.getElementById('regPass').value.trim();
+
+                if (regName === "") { setError('regNameGroup'); isValid = false; } else { clearError('regNameGroup'); }
+                if (!isValidEmailOrPhone(regId)) { setError('regIdGroup'); isValid = false; } else { clearError('regIdGroup'); }
+                if (regPass.length < 6) { setError('regPassGroup'); isValid = false; } else { clearError('regPassGroup'); }
+                if (isValid) {
+                    alert(`🙏 || Jai Maa Chamunda Devi || 🙏\n\nRegistration Successful!\nPlease Login to continue.`);
+                    formRegister.reset(); tabLogin.click();
+                }
+            });
+
+            function setupModal(triggerId, modalId, closeId) {
+                const trigger = document.getElementById(triggerId);
+                const modal = document.getElementById(modalId);
+                const close = document.getElementById(closeId);
+
+                if (trigger) trigger.addEventListener('click', (e) => { e.preventDefault(); modal.classList.add('show'); });
+                if (close) close.addEventListener('click', () => modal.classList.remove('show'));
+                if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
+            }
+
+            setupModal('cardDarshanTiming', 'darshanTimingModal', 'closeDarshanTimingModal');
+            setupModal('cardAartiSchedule', 'aartiTimingModal', 'closeAartiTimingModal');
+
+            document.getElementById('aboutCardDarshan').addEventListener('click', () => {
+                document.getElementById('darshanTimingModal').classList.add('show');
+            });
+
+            setupModal('navAboutLink', 'aboutModal', 'closeAboutModal');
+            setupModal('readHistoryBtn', 'aboutModal', 'closeAboutModal');
+            setupModal('cardTempleHistory', 'aboutModal', 'closeAboutModal');
+
+            setupModal('navReachLink', 'reachModal', 'closeReachModal');
+            setupModal('cardHowToReach', 'reachModal', 'closeReachModal');
+            setupModal('reachCardRoad', 'reachModal', 'closeReachModal');
+            setupModal('reachCardTrain', 'reachModal', 'closeReachModal');
+            setupModal('reachCardAir', 'reachModal', 'closeReachModal');
+
+            setupModal('navGalleryLink', 'galleryModal', 'closeGalleryModal');
+            setupModal('cardPhotoGallery', 'galleryModal', 'closeGalleryModal');
+            setupModal('viewAllPhotosBtn', 'galleryModal', 'closeGalleryModal');
+
+            setupModal('navFacilitiesLink', 'facilitiesModal', 'closeFacilitiesModal');
+            setupModal('navContactLink', 'contactModal', 'closeContactModal');
+
+            const navDarshanLink = document.getElementById('navDarshanLink');
+            const darshanModal = document.getElementById('darshanModal');
+            const closeDarshanModal = document.getElementById('closeDarshanModal');
+            const liveVideo = document.getElementById('liveVideo');
+            const exploreTempleBtn = document.getElementById('exploreTempleBtn'); // New Explore Button
+
+            // Function to Open Darshan Video
+            function openDarshanVideo(e) {
+                if (e) e.preventDefault();
+                darshanModal.classList.add('show');
+            }
+
+            navDarshanLink.addEventListener('click', openDarshanVideo);
+            exploreTempleBtn.addEventListener('click', openDarshanVideo); // Attached to Explore Button
+
+            closeDarshanModal.addEventListener('click', () => {
+                darshanModal.classList.remove('show');
+                let currentSrc = liveVideo.src; liveVideo.src = currentSrc;
+            });
+            darshanModal.addEventListener('click', (e) => {
+                if (e.target === darshanModal) {
+                    darshanModal.classList.remove('show');
+                    let currentSrc = liveVideo.src; liveVideo.src = currentSrc;
+                }
+            });
+
+            setupModal('footerAboutLink', 'aboutModal', 'closeAboutModal');
+            setupModal('footerDarshanLink', 'darshanTimingModal', 'closeDarshanTimingModal');
+            setupModal('footerGalleryLink', 'galleryModal', 'closeGalleryModal');
+            setupModal('footerReachLink', 'reachModal', 'closeReachModal');
+            setupModal('footerFacilitiesLink', 'facilitiesModal', 'closeFacilitiesModal');
+            setupModal('footerContactLink', 'contactModal', 'closeContactModal');
+
+        });
+    </script>
+
+</body>
+
+</html>
